@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="viewModel"
+      type="com.structure.base_mvvm.presentation.search.viewModels.SearchViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGray">
+
+    <include
+      android:id="@+id/toolbar_title"
+      layout="@layout/toolbar_white" />
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/ed_search"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/dimen10"
+      android:background="@color/cardview_light_background"
+      android:hint="@string/search_movie"
+      android:padding="@dimen/dimen10"
+      android:text="@={viewModel.text}"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textColor="@color/black"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+<!--    android:onTextChanged="@{viewModel.onTextChanged}"-->
+
+    <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/email"
+      android:onClick="@{()->viewModel.click()}"
+      app:layout_constraintTop_toBottomOf="@id/ed_search"
+      android:id="@+id/btn"/>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+      android:id="@+id/progress"
+      style="Widget.MaterialComponents.LinearProgressIndicator"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen8"
+      android:indeterminate="true"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/btn"
+      app:trackColor="@color/white"
+      app:trackThickness="@dimen/dimen4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rc_notifications"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="@dimen/dimen8"
+      app:adapter="@{viewModel.adapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/progress"
+      app:orientation="@{`1`}"
+      app:span="@{`2`}"
+      tools:listitem="@layout/item_movie" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

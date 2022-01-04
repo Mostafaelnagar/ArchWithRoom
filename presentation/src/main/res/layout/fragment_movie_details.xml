@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="viewModel"
+      type="com.structure.base_mvvm.presentation.movieDetails.viewModels.MovieDetailsViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGray">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/ic_poster"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dimen250"
+      android:scaleType="centerCrop"
+      android:src="@drawable/bg_no_image"
+      android:transitionName="movie_poster"
+      app:layout_constraintTop_toTopOf="parent"
+      android:onClick="@{()->viewModel.openFullImage()}"
+      app:loadImage="@{viewModel.movieData.posterPath}" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tv_movie_name"
+      style="@style/TextMediumFont"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/dimen10"
+      android:text="@{viewModel.movieData.title}"
+      android:textAlignment="viewStart"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textColor="@color/black"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/ic_poster" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tv_movie_overview"
+      style="@style/TextRegularFont"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/dimen10"
+      android:text="@{viewModel.movieData.overview}"
+      android:textAlignment="viewStart"
+      android:textAppearance="@style/TextAppearance.AppCompat.Small"
+      android:textColor="@color/darkGray"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/tv_movie_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tv_movie_trailer"
+      style="@style/TextRegularFont"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/dimen10"
+      android:text="@string/movie_trailer"
+      android:textAlignment="viewStart"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+      android:textColor="@color/colorPrimaryDark"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/tv_movie_overview" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+      android:id="@+id/progress"
+      style="Widget.MaterialComponents.LinearProgressIndicator"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen8"
+      android:indeterminate="true"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/tv_movie_trailer"
+      app:trackColor="@color/white"
+      app:trackThickness="@dimen/dimen4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rc_notifications"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="@dimen/dimen8"
+      app:adapter="@{viewModel.adapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/progress"
+      app:orientation="@{`1`}"
+      app:span="@{`2`}"
+      tools:listitem="@layout/item_video" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
